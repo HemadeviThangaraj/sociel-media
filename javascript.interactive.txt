@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube-like interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Trending</a></li>
+                <li><a href="#">Subscriptions</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Trending Videos</h2>
+            <div class="video">
+                <div class="thumbnail">
+                    <img src="thumbnail.jpg" alt="Video thumbnail">
+                </div>
+                <div class="info">
+                    <h3><a href="#">Video Title</a></h3>
+                    <p>Channel Name</p>
+                    <p>Views and Upload Date</p>
+                </div>
+            </div>
+            <!-- Repeat the above video div for other trending videos -->
+        </section>
+    </main>
+    <footer>
+        <p>Copyright info</p>
+    </footer>
+</body>
+</html>

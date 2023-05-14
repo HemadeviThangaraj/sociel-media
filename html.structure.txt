@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>My YouTube Interface</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <!-- Add header content here -->
+    </header>
+
+    <main>
+      <section id="featured-video">
+        <!-- Add featured video content here -->
+      </section>
+
+      <section id="video-list">
+        <!-- Add video list content here -->
+      </section>
+    </main>
+
+    <footer>
+      <!-- Add footer content here -->
+    </footer>
+  </body>
+</html>

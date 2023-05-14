@@ -1,0 +1,38 @@
+// Get the video list and featured video elements
+const videoList = document.getElementById('video-list');
+const featuredVideo = document.getElementById('featured-video');
+
+// Add event listener to the video list
+videoList.addEventListener('click', (event) => {
+  // Get the clicked video
+  const video = event.target.closest('.video');
+
+  // If a video was clicked
+  if (video) {
+    // Remove the active class from all videos
+    const videos = document.querySelectorAll('.video');
+    videos.forEach((v) => {
+      v.classList.remove('active');
+    });
+
+    // Add the active class to the clicked video
+    video.classList.add('active');
+
+    // Change the featured video to the clicked video
+    const thumbnail = video.querySelector('.thumbnail img');
+    const title = video.querySelector('.info h3').textContent;
+    const description = video.querySelector('.info p').textContent;
+
+    featuredVideo.innerHTML = `
+      <div class="video">
+        <div class="thumbnail">
+          <img src="${thumbnail.src}" alt="">
+        </div>
+        <div class="info">
+          <h2>${title}</h2>
+          <p>${description}</p>
+        </div>
+      </div>
+    `;
+  }
+});

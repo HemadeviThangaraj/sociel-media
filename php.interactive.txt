@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My YouTube</title>
+  <style>
+    /* CSS styling for the search box and video list */
+    #search-box {
+      margin: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 20px;
+    }
+
+    #video-list {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .video {
+      width: 25%;
+      margin: 10px;
+    }
+
+    .thumbnail {
+      position: relative;
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: auto;
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #f00;
+      color: #fff;
+      font-size: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    /* CSS styling for the modal */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+    }
+
+    #modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    #close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- HTML structure for the search box and video list -->
+  <div>
+    <input type="text" id="search-box" placeholder="Search videos...">
+  </div>
+  <div id="video-list"></div>
+
+  <!-- HTML structure for the modal -->
+  <div id="modal">
+    <div id="modal-content">
+      <iframe id="video-player" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+      <div id="close-button">&times;</div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript code to handle search and display of videos
+    const searchBox = document.getElementById('search-box');
+    const videoList = document.getElementById('video-list');
+    const modal = document.getElementById('modal');
+    const videoPlayer = document.getElementById('video-player');
+    const closeButton = document.getElementById('close-button');
+
+    searchBox.addEventListener('keyup', event => {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        searchVideos();
+      }
+    });
+
+    function searchVideos() {
+      const query = searchBox.value;
+
+      // Replace YOUR_API_KEY with your YouTube API key
+      const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=YOUR_API_KEY&part=snippet&type=video&maxResults=12&q=${query
