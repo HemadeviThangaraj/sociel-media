@@ -1,0 +1,7 @@
+npm install dotenv
+SECRET_KEY=your-secret-key
+require('dotenv').config();
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.SECRET_KEY,
+};

@@ -1,0 +1,48 @@
+const mongoose = require('mongoose');
+const { User, Task } = require('./your-schema-file'); // Replace with the file path to your schema file
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/mydatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log('Connected to MongoDB');
+
+  // Create a new user
+  const newUser = new User({
+    username: 'john_doe',
+    email: 'john@example.com',
+    password: 'password123'
+  });
+
+  // Save the user to the database
+  newUser.save()
+    .then(savedUser => {
+      console.log('User created:', savedUser);
+
+      // Create a new task for the user
+      const newTask = new Task({
+        user_id: savedUser._id,
+        title: 'Complete project',
+        description: 'Finish the coding assignment',
+        due_date: new Date('2023-05-31')
+      });
+
+      // Save the task to the database
+      newTask.save()
+        .then(savedTask => {
+          console.log('Task created:', savedTask);
+          // Perform other operations or queries as needed
+        })
+        .catch(error => {
+          console.error('Error creating task:', error);
+        });
+    })
+    .catch(error => {
+      console.error('Error creating user:', error);
+    });
+})
+.catch(error => {
+  console.error('Error connecting to MongoDB:', error);
+});

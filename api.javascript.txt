@@ -1,0 +1,67 @@
+const MyModel = require('../models/MyModel');
+
+// Get all MyModels
+exports.getAllMyModels = async (req, res) => {
+  try {
+    const myModels = await MyModel.find();
+    res.json(myModels);
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving MyModels' });
+  }
+};
+
+// Get a specific MyModel by ID
+exports.getMyModelById = async (req, res) => {
+  try {
+    const myModel = await MyModel.findById(req.params.id);
+    if (!myModel) {
+      return res.status(404).json({ message: 'MyModel not found' });
+    }
+    res.json(myModel);
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving MyModel' });
+  }
+};
+
+// Create a new MyModel
+exports.createMyModel = async (req, res) => {
+  try {
+    const newModel = new MyModel(req.body);
+    const savedModel = await newModel.save();
+    res.status(201).json(savedModel);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating MyModel' });
+  }
+};
+
+// Update a specific MyModel by ID
+exports.updateMyModel = async (req, res) => {
+  try {
+    const updatedModel = await MyModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
+    if (!updatedModel) {
+      return res.status(404).json({ message: 'MyModel not found' });
+    }
+    res.json(updatedModel);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating MyModel' });
+  }
+};
+
+// Delete a specific MyModel by ID
+exports.deleteMyModel = async (req, res) => {
+  try {
+    const deletedModel = await MyModel.findByIdAndDelete(req.params.id);
+    if (!deletedModel) {
+      return res.status(404).json({ message: 'MyModel not found' });
+    }
+    res.json({ message: 'MyModel deleted' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting MyModel' });
+  }
+};

@@ -1,0 +1,49 @@
+const express = require('express');
+const passport = require('passport');
+const passportJWT = require('passport-jwt');
+const jwt = require('jsonwebtoken');
+const MyModel = require('../models/MyModel'); // Assuming you have a model defined
+
+const router = express.Router();
+const ExtractJwt = passportJWT.ExtractJwt;
+const JwtStrategy = passportJWT.Strategy;
+
+// Define the JWT options
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: 'your-secret-key', // Replace with your own secret key
+};
+
+// Define the JWT strategy
+const jwtStrategy = new JwtStrategy(jwtOptions, async (payload, done) => {
+  try {
+    // Find the user based on the payload's ID
+    const user = await MyModel.findById(payload.id);
+    if (user) {
+      return done(null, user);
+    }
+    return done(null, false);
+  } catch (error) {
+    return done(error, false);
+  }
+});
+
+// Use the JWT strategy with Passport.js
+passport.use(jwtStrategy);
+
+// Apply the authentication middleware to your routes
+router.get(
+  '/api/mymodels',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    // Handle the route logic here
+    // The authenticated user's ID can be accessed via req.user.id
+    // Example: const userId = req.user.id;
+
+    // Your code...
+  }
+);
+
+// Other routes...
+
+module.exports = router;
